@@ -2,7 +2,7 @@
 
 Simple-users is a library for basic user management for Spring applications. It is set up to work with Spring Security and to use Spring Data for storage of user objects.
 
-## How to
+## How to use simple-users
 
 The easiest way to use it, is to include its dependency and then let your Spring app scan its packages, by adding 
 ```
