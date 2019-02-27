@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import edu.asu.diging.simpleusers.core.config.ConfigurationProvider;
 import edu.asu.diging.simpleusers.core.exceptions.UserAlreadyExistsException;
 import edu.asu.diging.simpleusers.core.factory.IUserFactory;
 import edu.asu.diging.simpleusers.core.model.IUser;
@@ -24,6 +25,9 @@ public class CreateAccountController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     
     @Autowired
+    private ConfigurationProvider configProvider;
+    
+    @Autowired
     private IUserManager userManager;
     
     @Autowired
@@ -32,7 +36,7 @@ public class CreateAccountController {
     @RequestMapping(value = "/register", method=RequestMethod.GET)
     public String get(Model model) {
         model.addAttribute("user", new UserForm());
-        return "register";
+        return configProvider.getRegisterView();
     }
     
     @RequestMapping(value = "/register", method=RequestMethod.POST)
