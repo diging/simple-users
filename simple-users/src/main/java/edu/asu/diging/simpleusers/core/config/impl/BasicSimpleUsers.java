@@ -20,7 +20,8 @@ public class BasicSimpleUsers implements SimpleUsers {
         return this;
     }
     
-    public SimpleUsers setRegisterSuccessRedirect(String successRedirect) {
+    @Override
+    public SimpleUsers registerSuccessRedirect(String successRedirect) {
         this.registerSuccessRedirect = successRedirect;
         return this;
     }
@@ -35,6 +36,7 @@ public class BasicSimpleUsers implements SimpleUsers {
         return registerView;
     }
     
+    @Override
     public String getRegisterSuccessRedirect() {
         return registerSuccessRedirect;
     }

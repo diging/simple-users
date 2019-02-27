@@ -1,6 +1,5 @@
 package edu.asu.diging.simpleusers.core.config.impl;
 
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -43,4 +42,8 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
         return config.getRegisterView();
     }
     
+    @Override
+    public String getSuccessRegistrationRedirect() {
+        return config.getRegisterSuccessRedirect();
+    }
 }

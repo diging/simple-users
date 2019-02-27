@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.asu.diging.simpleusers.core.config.ConfigurationProvider;
 import edu.asu.diging.simpleusers.core.exceptions.UserAlreadyExistsException;
@@ -40,10 +41,10 @@ public class CreateAccountController {
     }
     
     @RequestMapping(value = "/register", method=RequestMethod.POST)
-    public String post(@Valid @ModelAttribute("user") UserForm userForm, BindingResult result, Model model) {
+    public String post(@Valid @ModelAttribute("user") UserForm userForm, BindingResult result, Model model, RedirectAttributes redirectAttrs) {
         if (result.hasErrors()) {
             model.addAttribute("user", userForm);
-            return "register";
+            return configProvider.getRegisterView();
         }
         
         IUser user = userFactory.createUser(userForm);
@@ -53,9 +54,10 @@ public class CreateAccountController {
             logger.error("User could not be created. Username already in use.");
             model.addAttribute("user", userForm);
             result.rejectValue("username", "username", "Username is already in use.");
-            return "register";
+            return configProvider.getRegisterView();
         }
         
-        return "redirect:/ ";
+        redirectAttrs.addFlashAttribute("accountRegistrationStatus", "success");
+        return "redirect:" + configProvider.getSuccessRegistrationRedirect();
     }
 }

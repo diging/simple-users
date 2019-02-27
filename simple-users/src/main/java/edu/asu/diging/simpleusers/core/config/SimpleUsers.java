@@ -10,5 +10,9 @@ public interface SimpleUsers {
 
     SimpleUsers userListView(String userListView);
 
+    String getRegisterSuccessRedirect();
+
+    SimpleUsers registerSuccessRedirect(String successRedirect);
+
     
 }

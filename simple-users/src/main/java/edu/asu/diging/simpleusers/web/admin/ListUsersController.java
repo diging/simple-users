@@ -1,4 +1,4 @@
-package edu.asu.diging.simpleusers.web;
+package edu.asu.diging.simpleusers.web.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

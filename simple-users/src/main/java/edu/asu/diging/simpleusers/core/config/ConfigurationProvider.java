@@ -16,4 +16,6 @@ public interface ConfigurationProvider {
 
     String getRegisterView();
 
+    String getSuccessRegistrationRedirect();
+
 }
