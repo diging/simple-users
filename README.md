@@ -16,6 +16,7 @@ If you want to create required beans individually, you need to instantiate the f
 
 * ```edu.asu.diging.simpleusers.core.service.impl.UserService```, returning its interface ```edu.asu.diging.simpleusers.core.service.IUserManager```
 * ```edu.asu.diging.simpleusers.core.factory.impl.UserFactory```, returning ```edu.asu.diging.simpleusers.core.factory.IUserFactory```
+* ```edu.asu.diging.simpleusers.core.config.impl.ConfigurationProviderImpl```, returning ```edu.asu.diging.simpleusers.core.config.ConfigurationProvider```
 
 User objects are stored using Spring Data and the repository ```edu.asu.diging.simpleusers.core.data.UserRepository```.
 
@@ -27,11 +28,28 @@ The user class is annotated using JPA annotations. All you need to do is to conf
 
 ## Securing your application
 
-Simple configure Spring Security as you normally would, and let it find the user details service provided by this library through component scanning or provide it as a bean (if you choose to instantiate it yourself, you also need to provide a user factory instance).
+Simply configure Spring Security as you normally would, and let it find the user details service provided by this library through component scanning or provide it as a bean (if you choose to instantiate it yourself, you also need to provide a user factory instance).
 
 ## Registering new users
 
-To register a new user, make sure the CreateAccountController is available in a context, then send your users to /register. Provide a register view (the CreateAccountController assumes that there is a view for 'register'). After succesfully registering, users will be redirected to '/'.
+To register a new user, make sure the CreateAccountController is available in a context, then send your users to /register. Provide a register view (by default the CreateAccountController assumes that there is a view for 'register'). After succesfully registering, users will be redirected to '/' by default. There will be a redirect flash attribute in the model called "accountRegistrationStatus" set to "success" if account registration was successful
+
+## Managing users
+
+To approve user accounts or deactivate users, provide a link to ```/admin/user/list```. Then provide a view that iterates over all users (```${users}```). For each user, the following endpoints are available:
+* ```/admin/user/${user.username}/approve```: make a POST request to approve user
+* ```/admin/user/${user.username}/admin```: make a POST request to give a user ADMIN role
+* ```/admin/user/${user.username}/admin/remove```: make a POST request to remove ADMIN role from user
+* ```/admin/user/${user.username}/disable```: make a POST request to disable a user account
+
+By default, the controller serving ```/admin/user/list``` assumes that the view is ```admin/user/list```.
+
+## Configuring simple-users
+
+You can configure simple-users by adding a configuration class that implements ```edu.asu.diging.simpleusers.core.config.SimpleUsersConfiguration``` and that is annotated with ```@Configuration```. When you implement the ```configure``` method you can set the following configurations:
+* ```userListView```: view name of the view that shows the user management
+* ```registerView```: view name of the register view
+* ```registerSuccessRedirect```: redirect URL after successful account registration.
 
 
 
