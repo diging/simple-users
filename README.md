@@ -30,6 +30,14 @@ The user class is annotated using JPA annotations. All you need to do is to conf
 
 Simply configure Spring Security as you normally would, and let it find the user details service provided by this library through component scanning or provide it as a bean (if you choose to instantiate it yourself, you also need to provide a user factory instance).
 
+## Users for Setup
+
+simple-users expects a ```user.properties``` file at the root of the classpath that contains a list of hard-coded users in the format:
+```[username]=[bcrypt encrypted password],[ROLE],[enabled|disabled]```
+(without the brackets)
+
+These user accounts are not meant to be used as permanent user accounts, but rather to be used during the setup phase to be able to approve the first admin user account.
+
 ## Registering new users
 
 To register a new user, make sure the CreateAccountController is available in a context, then send your users to /register. Provide a register view (by default the CreateAccountController assumes that there is a view for 'register'). After succesfully registering, users will be redirected to '/' by default. There will be a redirect flash attribute in the model called "accountRegistrationStatus" set to "success" if account registration was successful
