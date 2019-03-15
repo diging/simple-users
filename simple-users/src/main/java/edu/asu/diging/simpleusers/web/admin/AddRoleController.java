@@ -15,9 +15,9 @@ import edu.asu.diging.simpleusers.core.exceptions.MethodNotSupportedException;
 import edu.asu.diging.simpleusers.core.service.IUserManager;
 
 @Controller
-public class ApproveAccountController extends ManageUserController {
-    
-    public final static String REQUEST_MAPPING_PATH = "{" + USERNAME_VARIABLE + "}/approve";
+public class AddRoleController extends ManageUserController {
+
+public final static String REQUEST_MAPPING_PATH = "{" + USERNAME_VARIABLE + "}/role/add";
     
     @Autowired
     private IUserManager userManager;
@@ -33,9 +33,15 @@ public class ApproveAccountController extends ManageUserController {
     @Override
     protected ModelAndView handlePost(HttpServletRequest request, HttpServletResponse response)
             throws MethodNotSupportedException, Exception {
+        String[] roles = request.getParameterValues("roles");
+        if (roles != null && roles.length > 0) {
+            String username = getUsername(request);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            for (String role : roles) {
+                userManager.addRole(username, authentication.getName(), role);
+            }
+        }
         ModelAndView model = new ModelAndView();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        userManager.approveAccount(getUsername(request), authentication.getName());
         model.setViewName("redirect:" + configProvider.getUserEndpointPrefix() + ListUsersController.REQUEST_MAPPING_PATH);
         return model;
     }
@@ -50,4 +56,5 @@ public class ApproveAccountController extends ManageUserController {
     protected String getFailureViewName() {
         return "redirect:" + configProvider.getUserEndpointPrefix() + ListUsersController.REQUEST_MAPPING_PATH;
     }
+
 }

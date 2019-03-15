@@ -1,5 +1,7 @@
 # simple-users
 
+[![Build Status](https://diging-dev.asu.edu/jenkins/buildStatus/icon?job=simple_users_test_on_push&style=plastic&subject=Tests)](https://diging-dev.asu.edu/jenkins/view/Simple%20Users/job/simple_users_test_on_push/) [![Build Status](https://diging-dev.asu.edu/jenkins/buildStatus/icon?job=simple-users_deploy_to_maven_central&style=plastic&subject=Maven%20Central&color=orange)](https://diging-dev.asu.edu/jenkins/view/Simple%20Users/job/simple-users_deploy_to_maven_central/)
+
 Simple-users is a library for basic user management for Spring applications. It is set up to work with Spring Security and to use Spring Data for storage of user objects.
 
 ## How to use simple-users
@@ -20,7 +22,15 @@ If you want to create required beans individually, you need to instantiate the f
 
 User objects are stored using Spring Data and the repository ```edu.asu.diging.simpleusers.core.data.UserRepository```.
 
-Also, this library provides one controller to create new user accounts: ```edu.asu.diging.simpleusers.web.CreateAccountController```.
+Also, this library provides several controllers: 
+* ```edu.asu.diging.simpleusers.web.CreateAccountController```
+* ```edu.asu.diging.simpleusers.web.admin.RemoveRoleController```
+* ```edu.asu.diging.simpleusers.web.admin.RemoveAdminRoleController```
+* ```edu.asu.diging.simpleusers.web.admin.ListUsersController```
+* ```edu.asu.diging.simpleusers.web.admin.DisableUserController```
+* ```edu.asu.diging.simpleusers.web.admin.ApproveAccountController```
+* ```edu.asu.diging.simpleusers.web.admin.AddRoleController```
+* ```edu.asu.diging.simpleusers.web.admin.AddAdminRoleController```
 
 ## Storing data
 
@@ -49,15 +59,18 @@ To approve user accounts or deactivate users, provide a link to ```/admin/user/l
 * ```/admin/user/${user.username}/admin```: make a POST request to give a user ADMIN role
 * ```/admin/user/${user.username}/admin/remove```: make a POST request to remove ADMIN role from user
 * ```/admin/user/${user.username}/disable```: make a POST request to disable a user account
+* ```/admin/user/${user.username}/role/add?roles=role1,role2```: make a POST request to add the specified roles
+* ```/admin/user/${user.username}/role/remove?roles=role1,role2```: make a POST request to remove the specified roles
 
-By default, the controller serving ```/admin/user/list``` assumes that the view is ```admin/user/list```.
+The default prefix for simple user related endpoints is ```/admin/user```. See below for how to change it. By default, the controller serving ```/admin/user/list``` assumes that the view is ```admin/user/list```. This can also be changed as described below.
 
 ## Configuring simple-users
 
 You can configure simple-users by adding a configuration class that implements ```edu.asu.diging.simpleusers.core.config.SimpleUsersConfiguration``` and that is annotated with ```@Configuration```. When you implement the ```configure``` method you can set the following configurations:
 * ```userListView```: view name of the view that shows the user management
 * ```registerView```: view name of the register view
-* ```registerSuccessRedirect```: redirect URL after successful account registration.
+* ```registerSuccessRedirect```: redirect URL after successful account registration
+* ```usersEndpointPrefix```: set the prefix for all simple user related endpoints; setting this property make all endpoints available under the provided prefix (e.g. setting this property to ```/secured/path/users/``` will make the user list available at ```/secured/path/users/list```).
 
 
 

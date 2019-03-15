@@ -46,4 +46,23 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
     public String getSuccessRegistrationRedirect() {
         return config.getRegisterSuccessRedirect();
     }
+    
+    @Override
+    public String getUserEndpointPrefix() {
+        if (!config.getUsersEndpointPrefix().endsWith("/")) {
+            return config.getUsersEndpointPrefix() + "/";
+        }
+        return config.getUsersEndpointPrefix();
+    }
+    
+    @Override
+    public String getFullEndpoint(String controllerEndpoint) {
+        String endpointPrefix = context.getApplicationName();
+        if (!endpointPrefix.endsWith("/") && !getUserEndpointPrefix().startsWith("/")) {
+            endpointPrefix = endpointPrefix + "/" + getUserEndpointPrefix();
+        } else {
+            endpointPrefix = (endpointPrefix + getUserEndpointPrefix()).replaceAll("//", "/");
+        }
+        return endpointPrefix + controllerEndpoint;
+    }
 }

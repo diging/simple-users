@@ -14,5 +14,9 @@ public interface SimpleUsers {
 
     SimpleUsers registerSuccessRedirect(String successRedirect);
 
+    SimpleUsers usersEndpointPrefix(String listUsersEndpoint);
+
+    String getUsersEndpointPrefix();
+
     
 }

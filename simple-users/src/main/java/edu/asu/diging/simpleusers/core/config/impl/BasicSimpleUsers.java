@@ -8,6 +8,8 @@ public class BasicSimpleUsers implements SimpleUsers {
     private String registerView = "register";
     private String registerSuccessRedirect = "/";
     
+    private String usersEndpointPrefix = "/admin/user/";
+    
     @Override
     public SimpleUsers userListView(String userListView) {
         this.userListView = userListView;
@@ -40,6 +42,16 @@ public class BasicSimpleUsers implements SimpleUsers {
     public String getRegisterSuccessRedirect() {
         return registerSuccessRedirect;
     }
-    
+
+    @Override
+    public String getUsersEndpointPrefix() {
+        return usersEndpointPrefix;
+    }
+
+    @Override
+    public SimpleUsers usersEndpointPrefix(String usersEndpointPrefix) {
+        this.usersEndpointPrefix = usersEndpointPrefix;
+        return this;
+    }
 
 }

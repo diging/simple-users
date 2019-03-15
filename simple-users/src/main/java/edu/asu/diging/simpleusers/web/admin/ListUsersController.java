@@ -1,25 +1,32 @@
 package edu.asu.diging.simpleusers.web.admin;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 
 import edu.asu.diging.simpleusers.core.config.ConfigurationProvider;
 import edu.asu.diging.simpleusers.core.service.IUserManager;
 
 @Controller
-public class ListUsersController {
+public class ListUsersController extends AbstractController {
     
+    public final static String REQUEST_MAPPING_PATH = "list";
+
     @Autowired
     private ConfigurationProvider configProvider;
 
     @Autowired
     private IUserManager userManager;
 
-    @RequestMapping("/admin/user/list")
-    public String list(Model model) {
-        model.addAttribute("users", userManager.findAll());
-        return configProvider.getUserListView();
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+        ModelAndView model = new ModelAndView();
+        model.addObject("users", userManager.findAll());
+        model.setViewName(configProvider.getUserListView());
+        return model;
     }
 }
