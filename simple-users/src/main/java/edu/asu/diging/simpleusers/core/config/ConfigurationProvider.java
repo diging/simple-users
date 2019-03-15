@@ -18,4 +18,8 @@ public interface ConfigurationProvider {
 
     String getSuccessRegistrationRedirect();
 
+    String getUserEndpointPrefix();
+
+    String getFullEndpoint(String configuredEndpoint);
+
 }

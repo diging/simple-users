@@ -12,12 +12,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.asu.diging.simpleusers.core.config.ConfigurationProvider;
 import edu.asu.diging.simpleusers.core.exceptions.MethodNotSupportedException;
+import edu.asu.diging.simpleusers.core.model.Role;
 import edu.asu.diging.simpleusers.core.service.IUserManager;
 
 @Controller
-public class ApproveAccountController extends ManageUserController {
+public class AddAdminRoleController extends ManageUserController {
     
-    public final static String REQUEST_MAPPING_PATH = "{" + USERNAME_VARIABLE + "}/approve";
+    protected final static String USERNAME_VARIABLE = "username";
+    public final static String REQUEST_MAPPING_PATH = "{" + USERNAME_VARIABLE + "}/admin";
     
     @Autowired
     private IUserManager userManager;
@@ -31,18 +33,18 @@ public class ApproveAccountController extends ManageUserController {
     }
 
     @Override
-    protected ModelAndView handlePost(HttpServletRequest request, HttpServletResponse response)
-            throws MethodNotSupportedException, Exception {
-        ModelAndView model = new ModelAndView();
+    protected ModelAndView handlePost(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String username = getUsername(request);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        userManager.approveAccount(getUsername(request), authentication.getName());
+        userManager.addRole(username, authentication.getName(), Role.ADMIN);
+        
+        ModelAndView model = new ModelAndView();
         model.setViewName("redirect:" + configProvider.getUserEndpointPrefix() + ListUsersController.REQUEST_MAPPING_PATH);
         return model;
     }
 
     @Override
-    protected ModelAndView handleGet(HttpServletRequest request, HttpServletResponse response)
-            throws MethodNotSupportedException, Exception {
+    protected ModelAndView handleGet(HttpServletRequest request, HttpServletResponse response) throws Exception {
         throw new MethodNotSupportedException(RequestMethod.GET);
     }
 
