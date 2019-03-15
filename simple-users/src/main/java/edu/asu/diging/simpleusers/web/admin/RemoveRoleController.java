@@ -12,13 +12,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.asu.diging.simpleusers.core.config.ConfigurationProvider;
 import edu.asu.diging.simpleusers.core.exceptions.MethodNotSupportedException;
-import edu.asu.diging.simpleusers.core.model.Role;
 import edu.asu.diging.simpleusers.core.service.IUserManager;
 
 @Controller
-public class AddAdminRoleController extends ManageUserController {
-    
-    public final static String REQUEST_MAPPING_PATH = "{" + USERNAME_VARIABLE + "}/admin";
+public class RemoveRoleController extends ManageUserController {
+
+public final static String REQUEST_MAPPING_PATH = "{" + USERNAME_VARIABLE + "}/role/remove";
     
     @Autowired
     private IUserManager userManager;
@@ -32,18 +31,24 @@ public class AddAdminRoleController extends ManageUserController {
     }
 
     @Override
-    protected ModelAndView handlePost(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String username = getUsername(request);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        userManager.addRole(username, authentication.getName(), Role.ADMIN);
-        
+    protected ModelAndView handlePost(HttpServletRequest request, HttpServletResponse response)
+            throws MethodNotSupportedException, Exception {
+        String[] roles = request.getParameterValues("roles");
+        if (roles != null && roles.length > 0) {
+            String username = getUsername(request);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            for (String role : roles) {
+                userManager.removeRole(username, authentication.getName(), role);
+            }
+        }
         ModelAndView model = new ModelAndView();
         model.setViewName("redirect:" + configProvider.getUserEndpointPrefix() + ListUsersController.REQUEST_MAPPING_PATH);
         return model;
     }
 
     @Override
-    protected ModelAndView handleGet(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleGet(HttpServletRequest request, HttpServletResponse response)
+            throws MethodNotSupportedException, Exception {
         throw new MethodNotSupportedException(RequestMethod.GET);
     }
 
@@ -51,4 +56,5 @@ public class AddAdminRoleController extends ManageUserController {
     protected String getFailureViewName() {
         return "redirect:" + configProvider.getUserEndpointPrefix() + ListUsersController.REQUEST_MAPPING_PATH;
     }
+
 }
