@@ -1,6 +1,6 @@
 # simple-users
 
-[![Build Status](https://diging-dev.asu.edu/jenkins/buildStatus/icon?job=simple_users_test_on_push&style=plastic&subject=Tests)](https://diging-dev.asu.edu/jenkins/view/Simple%20Users/job/simple_users_test_on_push/) [![Build Status](https://diging-dev.asu.edu/jenkins/buildStatus/icon?job=simple-users_deploy_to_maven_central&style=plastic&subject=Maven%20Central&color=orange)](https://diging-dev.asu.edu/jenkins/view/Simple%20Users/job/simple-users_deploy_to_maven_central/)
+[![Build Status](https://diging-dev.asu.edu/jenkins/buildStatus/icon?job=simple_users_test_on_push&style=plastic&subject=Tests)](https://diging-dev.asu.edu/jenkins/view/Simple%20Users/job/simple_users_test_on_push/) [![Build Status](https://diging-dev.asu.edu/jenkins/buildStatus/icon?job=simple-users_deploy_to_maven_central&style=plastic&subject=Published%20Maven%20Central&color=orange)](https://diging-dev.asu.edu/jenkins/view/Simple%20Users/job/simple-users_deploy_to_maven_central/)
 
 Simple-users is a library for basic user management for Spring applications. It is set up to work with Spring Security and to use Spring Data for storage of user objects.
 
