@@ -65,4 +65,69 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
         }
         return endpointPrefix + controllerEndpoint;
     }
+    
+    @Override
+    public String getResetPasswordEndpoint() {
+        return config.getResetPasswordEndpoint();
+    }
+    
+    @Override
+    public long getTokenExpirationPeriod() {
+        return config.getTokenExpirationPeriod();
+    }
+    
+    @Override
+    public String getEmailUsername() {
+        return config.getEmailUsername();
+    }
+
+    @Override
+    public String getEmailPassword() {
+        return config.getEmailPassword();
+    }
+
+    @Override
+    public String getEmailServerPort() {
+        return config.getEmailServerPort();
+    }
+
+    @Override
+    public String getEmailServerHost() {
+        return config.getEmailServerHost();
+    }
+    
+    @Override
+    public String getEmailProtocol() {
+        return config.getEmailProtocol();
+    }
+
+    @Override
+    public boolean isEmailAuthentication() {
+        return config.isEmailAuthentication();
+    }
+
+    @Override
+    public boolean isEmailStartTlsEnable() {
+        return config.isEmailStartTlsEnable();
+    }
+
+    @Override
+    public boolean isEmailDebug() {
+        return config.isEmailDebug();
+    }
+    
+    @Override
+    public String getInstanceUrl() {
+        return config.getInstanceUrl();
+    }
+    
+    @Override
+    public String getEmailFrom() {
+        return config.getEmailFrom();
+    }
+    
+    @Override
+    public String getAppName() {
+        return config.getAppName();
+    }
 }

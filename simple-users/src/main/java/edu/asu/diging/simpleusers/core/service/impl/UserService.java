@@ -85,6 +85,11 @@ public class UserService implements UserDetailsService, IUserManager {
     }
     
     @Override
+    public IUser findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+    
+    @Override
     public List<IUser> findAll() {
         Iterable<User> users = userRepository.findAll();
         List<IUser> results = new ArrayList<>();
