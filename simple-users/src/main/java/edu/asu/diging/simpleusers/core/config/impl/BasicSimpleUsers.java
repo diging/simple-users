@@ -9,7 +9,8 @@ public class BasicSimpleUsers implements SimpleUsers {
     private String registerSuccessRedirect = "/";
     
     private String usersEndpointPrefix = "/admin/user/";
-    private String resetPasswordEndpoint = "/password/reset";
+    private String resetPasswordEndpoint = "/reset/request";
+    private String resetRequestSentEndpoint = "/reset/request/sent";
     
     private long tokenExpirationPeriod = 1440;
     
@@ -23,6 +24,12 @@ public class BasicSimpleUsers implements SimpleUsers {
     private boolean emailStartTlsEnable = true;
     private boolean emailDebug = false;
     private String emailFrom;
+    
+    private String emailBody;
+    private String emailSubject;
+    
+    private String changePasswordEndpoint = "/password/change";
+    private String changePasswordView = "password/change";
     
     private String instanceUrl;
     private String appName = "Web Application";
@@ -54,6 +61,12 @@ public class BasicSimpleUsers implements SimpleUsers {
     @Override
     public SimpleUsers resetPasswordEndpoint(String resetPasswordEndpoint) {
         this.resetPasswordEndpoint = resetPasswordEndpoint;
+        return this;
+    }
+    
+    @Override
+    public SimpleUsers resetRequestSentEndpoint(String resetRequestSentEndpoint) {
+        this.resetRequestSentEndpoint = resetRequestSentEndpoint;
         return this;
     }
     
@@ -118,6 +131,18 @@ public class BasicSimpleUsers implements SimpleUsers {
     }
     
     @Override
+    public SimpleUsers emailBody(String body) {
+        this.emailBody = body;
+        return this;
+    }
+    
+    @Override
+    public SimpleUsers emailSubject(String subject) {
+        this.emailSubject = subject;
+        return this;
+    }
+    
+    @Override
     public SimpleUsers instanceUrl(String url) {
         this.instanceUrl = url;
         return this;
@@ -126,6 +151,18 @@ public class BasicSimpleUsers implements SimpleUsers {
     @Override
     public SimpleUsers appName(String appName) {
         this.appName = appName;
+        return this;
+    }
+    
+    @Override
+    public SimpleUsers changePasswordEndpoint(String endpoint) {
+        this.changePasswordEndpoint = endpoint;
+        return this;
+    }
+    
+    @Override
+    public SimpleUsers changePasswordView(String view) {
+        this.changePasswordView = view;
         return this;
     }
     
@@ -152,6 +189,11 @@ public class BasicSimpleUsers implements SimpleUsers {
     @Override
     public String getResetPasswordEndpoint() {
         return this.resetPasswordEndpoint;
+    }
+    
+    @Override
+    public String getResetRequestSentEndpoint() {
+        return this.resetRequestSentEndpoint;
     }
     
     @Override
@@ -204,6 +246,26 @@ public class BasicSimpleUsers implements SimpleUsers {
         return emailFrom;
     }
     
+    @Override
+    public String getEmailBody() {
+        return emailBody;
+    }
+
+    @Override
+    public String getEmailSubject() {
+        return emailSubject;
+    }
+    
+    @Override
+    public String getChangePasswordEndpoint() {
+        return changePasswordEndpoint;
+    }
+    
+    @Override
+    public String getChangePasswordView() {
+        return this.changePasswordView;
+    }
+
     @Override
     public String getInstanceUrl() {
         return this.instanceUrl;

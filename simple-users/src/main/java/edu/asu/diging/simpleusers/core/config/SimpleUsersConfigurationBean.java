@@ -1,30 +1,25 @@
 package edu.asu.diging.simpleusers.core.config;
 
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.mail.internet.MimeMessage;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 
+import edu.asu.diging.simpleusers.core.service.impl.NotSetupMailSender;
+import edu.asu.diging.simpleusers.web.admin.AddAdminRoleController;
+import edu.asu.diging.simpleusers.web.admin.AddRoleController;
 import edu.asu.diging.simpleusers.web.admin.ApproveAccountController;
 import edu.asu.diging.simpleusers.web.admin.DisableUserController;
 import edu.asu.diging.simpleusers.web.admin.ListUsersController;
 import edu.asu.diging.simpleusers.web.admin.RemoveAdminRoleController;
 import edu.asu.diging.simpleusers.web.admin.RemoveRoleController;
-import edu.asu.diging.simpleusers.core.service.impl.NotSetupMailSender;
-import edu.asu.diging.simpleusers.web.admin.AddAdminRoleController;
-import edu.asu.diging.simpleusers.web.admin.AddRoleController;
 
 @Configuration
 public class SimpleUsersConfigurationBean {
@@ -45,6 +40,9 @@ public class SimpleUsersConfigurationBean {
         urlMappings.put(endpoint + DisableUserController.REQUEST_MAPPING_PATH, "disableUserController");
         urlMappings.put(endpoint + AddRoleController.REQUEST_MAPPING_PATH, "addRoleController");
         urlMappings.put(endpoint + RemoveRoleController.REQUEST_MAPPING_PATH, "removeRoleController");
+        urlMappings.put(configProvider.getResetPasswordEndpoint(), "resetPasswordController");
+        urlMappings.put(configProvider.getChangePasswordEndpoint(), "changePasswordController");
+        urlMappings.put(configProvider.getResetRequestSentEndpoint(), "requestPasswordResetController");
         mapping.setUrlMap(urlMappings);
         return mapping;
     }

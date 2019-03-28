@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.asu.diging.simpleusers.core.data.UserRepository;
 import edu.asu.diging.simpleusers.core.exceptions.UserAlreadyExistsException;
+import edu.asu.diging.simpleusers.core.exceptions.UserDoesNotExistException;
 import edu.asu.diging.simpleusers.core.factory.IUserFactory;
 import edu.asu.diging.simpleusers.core.model.IUser;
 import edu.asu.diging.simpleusers.core.model.Role;
@@ -69,6 +70,17 @@ public class UserService implements UserDetailsService, IUserManager {
         }
         user.setEnabled(false);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save((User)user);
+    }
+    
+    @Override
+    public void changePassword(IUser user, String password) throws UserDoesNotExistException {
+        Optional<User> existingUser = userRepository.findById(user.getUsername());
+        if (!existingUser.isPresent()) {
+            throw new UserDoesNotExistException("User " + user.getUsername() + " does not exist.");
+        }
+        user = existingUser.get();
+        user.setPassword(bCryptPasswordEncoder.encode(password));
         userRepository.save((User)user);
     }
     

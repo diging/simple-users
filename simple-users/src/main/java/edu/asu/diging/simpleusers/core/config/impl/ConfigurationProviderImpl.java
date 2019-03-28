@@ -72,6 +72,11 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
     }
     
     @Override
+    public String getResetRequestSentEndpoint() {
+        return config.getResetRequestSentEndpoint();
+    }
+    
+    @Override
     public long getTokenExpirationPeriod() {
         return config.getTokenExpirationPeriod();
     }
@@ -117,13 +122,33 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
     }
     
     @Override
-    public String getInstanceUrl() {
-        return config.getInstanceUrl();
+    public String getEmailBody() {
+        return config.getEmailBody();
+    }
+
+    @Override
+    public String getEmailSubject() {
+        return config.getEmailSubject();
     }
     
     @Override
     public String getEmailFrom() {
         return config.getEmailFrom();
+    }
+    
+    @Override
+    public String getChangePasswordEndpoint() {
+        return config.getChangePasswordEndpoint();
+    }
+    
+    @Override
+    public String getChangePasswordView() {
+        return config.getChangePasswordView();
+    }
+    
+    @Override
+    public String getInstanceUrl() {
+        return config.getInstanceUrl();
     }
     
     @Override

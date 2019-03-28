@@ -70,5 +70,25 @@ public interface SimpleUsers {
 
     SimpleUsers resetPasswordEndpoint(String resetPasswordEndpoint);
 
+    String getEmailSubject();
+
+    String getEmailBody();
+
+    SimpleUsers emailSubject(String subject);
+
+    SimpleUsers emailBody(String body);
+
+    String getChangePasswordEndpoint();
+
+    SimpleUsers changePasswordEndpoint(String endpoint);
+
+    String getChangePasswordView();
+
+    SimpleUsers changePasswordView(String view);
+
+    String getResetRequestSentEndpoint();
+
+    SimpleUsers resetRequestSentEndpoint(String resetRequestSent);
+
     
 }

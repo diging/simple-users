@@ -3,6 +3,7 @@ package edu.asu.diging.simpleusers.core.service;
 import java.util.List;
 
 import edu.asu.diging.simpleusers.core.exceptions.UserAlreadyExistsException;
+import edu.asu.diging.simpleusers.core.exceptions.UserDoesNotExistException;
 import edu.asu.diging.simpleusers.core.model.IUser;
 import edu.asu.diging.simpleusers.core.model.Role;
 
@@ -29,5 +30,7 @@ public interface IUserManager {
     void disableUser(String username, String initiator);
 
     IUser findByEmail(String email);
+
+    void changePassword(IUser user, String password) throws UserDoesNotExistException;
 
 }

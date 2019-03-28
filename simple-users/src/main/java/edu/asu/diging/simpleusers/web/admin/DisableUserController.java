@@ -13,9 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.asu.diging.simpleusers.core.config.ConfigurationProvider;
 import edu.asu.diging.simpleusers.core.exceptions.MethodNotSupportedException;
 import edu.asu.diging.simpleusers.core.service.IUserManager;
+import edu.asu.diging.simpleusers.web.SimpleUserBaseController;
 
 @Controller
-public class DisableUserController extends ManageUserController {
+public class DisableUserController extends SimpleUserBaseController {
     
     protected final static String USERNAME_VARIABLE = "username";
     public final static String REQUEST_MAPPING_PATH = "{" + USERNAME_VARIABLE + "}/disable";

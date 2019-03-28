@@ -48,4 +48,14 @@ public interface ConfigurationProvider {
 
     String getResetPasswordEndpoint();
 
+    String getEmailSubject();
+
+    String getEmailBody();
+
+    String getChangePasswordEndpoint();
+
+    String getChangePasswordView();
+
+    String getResetRequestSentEndpoint();
+
 }

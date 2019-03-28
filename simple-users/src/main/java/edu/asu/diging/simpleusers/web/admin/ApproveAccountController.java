@@ -13,9 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.asu.diging.simpleusers.core.config.ConfigurationProvider;
 import edu.asu.diging.simpleusers.core.exceptions.MethodNotSupportedException;
 import edu.asu.diging.simpleusers.core.service.IUserManager;
+import edu.asu.diging.simpleusers.web.SimpleUserBaseController;
 
 @Controller
-public class ApproveAccountController extends ManageUserController {
+public class ApproveAccountController extends SimpleUserBaseController {
     
     public final static String REQUEST_MAPPING_PATH = "{" + USERNAME_VARIABLE + "}/approve";
     
