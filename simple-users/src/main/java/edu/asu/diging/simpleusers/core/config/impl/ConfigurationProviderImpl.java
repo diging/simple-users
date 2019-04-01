@@ -77,6 +77,11 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
     }
     
     @Override
+    public String getResetPasswordInitiatedEndpoint() {
+        return config.getResetPasswordInitiatedEndpoint();
+    }
+    
+    @Override
     public long getTokenExpirationPeriod() {
         return config.getTokenExpirationPeriod();
     }

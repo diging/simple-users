@@ -40,9 +40,9 @@ public class SimpleUsersConfigurationBean {
         urlMappings.put(endpoint + DisableUserController.REQUEST_MAPPING_PATH, "disableUserController");
         urlMappings.put(endpoint + AddRoleController.REQUEST_MAPPING_PATH, "addRoleController");
         urlMappings.put(endpoint + RemoveRoleController.REQUEST_MAPPING_PATH, "removeRoleController");
-        urlMappings.put(configProvider.getResetPasswordEndpoint(), "resetPasswordController");
+        urlMappings.put(configProvider.getResetPasswordEndpoint(), "requestPasswordResetController");
         urlMappings.put(configProvider.getChangePasswordEndpoint(), "changePasswordController");
-        urlMappings.put(configProvider.getResetRequestSentEndpoint(), "requestPasswordResetController");
+        urlMappings.put(configProvider.getResetPasswordInitiatedEndpoint(), "resetPasswordInitiatedController");
         mapping.setUrlMap(urlMappings);
         return mapping;
     }

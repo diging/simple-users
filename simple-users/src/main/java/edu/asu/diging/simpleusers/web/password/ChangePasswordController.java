@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -41,10 +42,21 @@ public class ChangePasswordController extends SimpleUserBaseController {
         IUser user = (IUser) userObj;
         String password = request.getParameter("password");
         if (password == null || password.trim().isEmpty()) {
-            return generateFailureModel("noPassword");
+            ModelAndView model = new ModelAndView();
+            model.setViewName("redirect:" + configProvider.getChangePasswordEndpoint() + "?error=noPassword");
+            return model;
+        }
+        
+        String repeatedPassword = request.getParameter("passwordRepeat");
+        if (!password.equals(repeatedPassword)) {
+            ModelAndView model = new ModelAndView();
+            model.setViewName("redirect:" + configProvider.getChangePasswordEndpoint() + "?error=notMatching");
+            return model;
         }
         
         userManager.changePassword(user, password);
+        
+        request.logout();
         ModelAndView model = new ModelAndView();
         model.setViewName("redirect:/" + "?success=PasswordChanged");
         return model;

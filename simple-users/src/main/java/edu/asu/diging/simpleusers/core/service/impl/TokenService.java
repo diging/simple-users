@@ -5,6 +5,8 @@ import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.UUID;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,6 +25,7 @@ import edu.asu.diging.simpleusers.core.model.impl.PasswordResetToken;
 import edu.asu.diging.simpleusers.core.service.IEmailService;
 import edu.asu.diging.simpleusers.core.service.ITokenService;
 import edu.asu.diging.simpleusers.core.service.IUserManager;
+import edu.asu.diging.simpleusers.core.service.SimpleUsersConstants;
 
 @Service
 public class TokenService implements ITokenService {
@@ -43,7 +46,7 @@ public class TokenService implements ITokenService {
      * @see edu.asu.diging.simpleusers.core.service.impl.ITokenService#resetPassword(java.lang.String)
      */
     @Override
-    public void resetPassword(String email) throws UserDoesNotExistException, IOException {
+    public void resetPassword(String email) throws UserDoesNotExistException, IOException, MessagingException {
         IUser user = userManager.findByEmail(email);
         if (user == null) {
             throw new UserDoesNotExistException("User with email " + email + " does not exist.");
@@ -73,7 +76,7 @@ public class TokenService implements ITokenService {
         IUser user = resetToken.getUser();
         Authentication auth = new UsernamePasswordAuthenticationToken(
           user, null, Arrays.asList(
-          new SimpleGrantedAuthority("CHANGE_PASSWORD_PRIVILEGE")));
+          new SimpleGrantedAuthority("ROLE_" + SimpleUsersConstants.CHANGE_PASSWORD_ROLE)));
         SecurityContextHolder.getContext().setAuthentication(auth);
         return true;
     }

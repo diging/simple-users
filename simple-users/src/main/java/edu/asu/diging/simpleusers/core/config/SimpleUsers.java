@@ -90,5 +90,9 @@ public interface SimpleUsers {
 
     SimpleUsers resetRequestSentEndpoint(String resetRequestSent);
 
+    String getResetPasswordInitiatedEndpoint();
+
+    SimpleUsers resetPasswordInitiatedEndpoint(String endpoint);
+
     
 }

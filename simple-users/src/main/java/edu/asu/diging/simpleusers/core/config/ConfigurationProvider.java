@@ -58,4 +58,6 @@ public interface ConfigurationProvider {
 
     String getResetRequestSentEndpoint();
 
+    String getResetPasswordInitiatedEndpoint();
+
 }
