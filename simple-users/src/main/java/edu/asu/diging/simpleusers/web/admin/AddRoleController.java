@@ -13,15 +13,16 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.asu.diging.simpleusers.core.config.ConfigurationProvider;
 import edu.asu.diging.simpleusers.core.exceptions.MethodNotSupportedException;
 import edu.asu.diging.simpleusers.core.service.IUserManager;
+import edu.asu.diging.simpleusers.web.SimpleUserBaseController;
 
 @Controller
-public class AddRoleController extends ManageUserController {
+public class AddRoleController extends SimpleUserBaseController {
 
-public final static String REQUEST_MAPPING_PATH = "{" + USERNAME_VARIABLE + "}/role/add";
-    
+    public final static String REQUEST_MAPPING_PATH = "{" + USERNAME_VARIABLE + "}/role/add";
+
     @Autowired
     private IUserManager userManager;
-    
+
     @Autowired
     private ConfigurationProvider configProvider;
 
@@ -42,7 +43,8 @@ public final static String REQUEST_MAPPING_PATH = "{" + USERNAME_VARIABLE + "}/r
             }
         }
         ModelAndView model = new ModelAndView();
-        model.setViewName("redirect:" + configProvider.getUserEndpointPrefix() + ListUsersController.REQUEST_MAPPING_PATH);
+        model.setViewName(
+                "redirect:" + configProvider.getUserEndpointPrefix() + ListUsersController.REQUEST_MAPPING_PATH);
         return model;
     }
 

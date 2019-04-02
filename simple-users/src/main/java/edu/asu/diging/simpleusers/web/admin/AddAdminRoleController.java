@@ -14,9 +14,10 @@ import edu.asu.diging.simpleusers.core.config.ConfigurationProvider;
 import edu.asu.diging.simpleusers.core.exceptions.MethodNotSupportedException;
 import edu.asu.diging.simpleusers.core.model.Role;
 import edu.asu.diging.simpleusers.core.service.IUserManager;
+import edu.asu.diging.simpleusers.web.SimpleUserBaseController;
 
 @Controller
-public class AddAdminRoleController extends ManageUserController {
+public class AddAdminRoleController extends SimpleUserBaseController {
     
     public final static String REQUEST_MAPPING_PATH = "{" + USERNAME_VARIABLE + "}/admin";
     

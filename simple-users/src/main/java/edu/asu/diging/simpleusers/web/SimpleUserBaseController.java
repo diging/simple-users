@@ -1,4 +1,4 @@
-package edu.asu.diging.simpleusers.web.admin;
+package edu.asu.diging.simpleusers.web;
 
 import java.util.Map;
 
@@ -21,7 +21,7 @@ import edu.asu.diging.simpleusers.core.exceptions.MethodNotSupportedException;
  * @author jdamerow
  *
  */
-public abstract class ManageUserController extends AbstractController {
+public abstract class SimpleUserBaseController extends AbstractController {
     
     protected final static String USERNAME_VARIABLE = "username";
     
@@ -66,6 +66,12 @@ public abstract class ManageUserController extends AbstractController {
         AntPathMatcher matcher = new AntPathMatcher();
         Map<String, String> pathVariables = matcher.extractUriTemplateVariables(configProvider.getFullEndpoint(getMappingPath()), request.getRequestURI());
         return pathVariables.get(USERNAME_VARIABLE);
+    }
+    
+    protected ModelAndView generateFailureModel(String errorMsg) {
+        ModelAndView model = new ModelAndView();
+        model.setViewName(getFailureViewName() + "?error=" + errorMsg);
+        return model;
     }
     
     /**

@@ -22,4 +22,42 @@ public interface ConfigurationProvider {
 
     String getFullEndpoint(String configuredEndpoint);
 
+    long getTokenExpirationPeriod();
+
+    String getEmailServerHost();
+
+    String getEmailServerPort();
+
+    String getEmailPassword();
+
+    String getEmailUsername();
+
+    boolean isEmailDebug();
+
+    boolean isEmailStartTlsEnable();
+
+    boolean isEmailAuthentication();
+
+    String getEmailProtocol();
+
+    String getInstanceUrl();
+
+    String getEmailFrom();
+
+    String getAppName();
+
+    String getResetPasswordEndpoint();
+
+    String getEmailSubject();
+
+    String getEmailBody();
+
+    String getChangePasswordEndpoint();
+
+    String getChangePasswordView();
+
+    String getResetRequestSentEndpoint();
+
+    String getResetPasswordInitiatedEndpoint();
+
 }
