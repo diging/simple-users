@@ -4,6 +4,20 @@
 
 Simple-users is a library for basic user management for Spring applications. It is set up to work with Spring Security and to use Spring Data for storage of user objects.
 
+## Installation
+
+If you use Maven, just add the following dependency:
+
+```
+<dependency>
+    <groupId>edu.asu.diging</groupId>
+    <artifactId>simple-users</artifactId>
+    <version>[simple-users-version]</version>
+</dependency>
+```
+
+where ```[simple-users-version]``` is the version you want to use.
+
 ## How to use simple-users
 
 The easiest way to use it, is to include its dependency and then let your Spring app scan its packages, by adding 
@@ -19,11 +33,16 @@ If you want to create required beans individually, you need to instantiate the f
 * ```edu.asu.diging.simpleusers.core.service.impl.UserService```, returning its interface ```edu.asu.diging.simpleusers.core.service.IUserManager```
 * ```edu.asu.diging.simpleusers.core.factory.impl.UserFactory```, returning ```edu.asu.diging.simpleusers.core.factory.IUserFactory```
 * ```edu.asu.diging.simpleusers.core.config.impl.ConfigurationProviderImpl```, returning ```edu.asu.diging.simpleusers.core.config.ConfigurationProvider```
+* ```edu.asu.diging.simpleusers.core.service.impl.EmailService```, returning ```edu.asu.diging.simpleusers.core.service.IEmailService```
+* ```edu.asu.diging.simpleusers.core.service.impl.TokenService```, returning ```edu.asu.diging.simpleusers.core.service.ITokenService```
+* an implementation of ```org.springframework.mail.javamail.JavaMailSender```
 
 User objects are stored using Spring Data and the repository ```edu.asu.diging.simpleusers.core.data.UserRepository```.
 
 Also, this library provides several controllers: 
 * ```edu.asu.diging.simpleusers.web.CreateAccountController```
+* ```edu.asu.diging.simpleusers.web.RequestPasswordResetController```
+* ```edu.asu.diging.simpleusers.web.ResetPasswordInitiatedController```
 * ```edu.asu.diging.simpleusers.web.admin.RemoveRoleController```
 * ```edu.asu.diging.simpleusers.web.admin.RemoveAdminRoleController```
 * ```edu.asu.diging.simpleusers.web.admin.ListUsersController```
@@ -31,6 +50,7 @@ Also, this library provides several controllers:
 * ```edu.asu.diging.simpleusers.web.admin.ApproveAccountController```
 * ```edu.asu.diging.simpleusers.web.admin.AddRoleController```
 * ```edu.asu.diging.simpleusers.web.admin.AddAdminRoleController```
+* ```edu.asu.diging.simpleusers.web.password.ChangePasswordController```
 
 ## Storing data
 
