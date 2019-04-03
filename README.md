@@ -72,5 +72,55 @@ You can configure simple-users by adding a configuration class that implements `
 * ```registerSuccessRedirect```: redirect URL after successful account registration
 * ```usersEndpointPrefix```: set the prefix for all simple user related endpoints; setting this property make all endpoints available under the provided prefix (e.g. setting this property to ```/secured/path/users/``` will make the user list available at ```/secured/path/users/list```).
 
+## Enabling password reset
 
+Since v0.4, simple-users provides password reset functionality. To let users reset their password by email, do the following.
 
+* In the simple user configuration class, set the following properties of ```SimpleUsers```:
+  * ```emailUsername```: username to use the email server
+  * ```emailPassword```: password to use the email server
+  * ```emailServerHost```: host name of the email server
+  * ```emailServerPort```: port of the email server
+  * ```emailFrom```: email address to use in the "from" field
+  * ```instanceUrl```: the url of the webapp using simple-users; this url is used to generate the reset link
+  * ```appName```: the name of the web application using simple-users; the name is used in the reset emails; default is "Web Application"
+* Optionally, you can also configure the following:
+  * ```emailProtocol```: protocol to use (defaults to smtp)
+  * ```emailAuthentication```: should authentication be used (defaults to true)
+  * ```emailStartTlsEnable```: enable STARTTLS (defaults to true)
+  * ```emailDebug```: enable email debugging in ```JavaMailSenderImpl```
+  * ```emailSubject```: specify a subject for the reset emails (default is "Password Reset Request")
+  * ```emailBody```: the email body used for reset emails; see below for more details
+  * ```tokenExpirationPeriod```: the time in minutes after which a token expires, by default tokens expire after 24 hours
+* For the password reset feature to work, certain urls have to be secured or allowed with Spring Security:
+  * ```"/password/**"``` has to be allowed for users with the role ```SimpleUsersConstants.CHANGE_PASSWORD_ROLE```, e.g. by adding ```.antMatchers("/password/**").hasRole(SimpleUsersConstants.CHANGE_PASSWORD_ROLE)```
+  * ```"/reset/**"``` has to be allowed for anyone, e.g. by adding ```.antMatchers("/reset/**").permitAll()```
+* A couple of controllers and views also have to be implemented:
+  * A controller and view for initiating the password reset have to be implemented, the page only needs to ask for the email address of the account to reset.
+  * The page for initiating the password reset, needs to make a POST request to ```/reset/request``` providing the email address for the user requesting a password reset as ```email``` parameter. Simple-users will check if a user with that email address exist and if so send an email with password reset instructions. The URL the POST request is made to can be overwritten by configuring ```resetPasswordEndpoint```.
+  * A controller and view have to be implement at ```/reset/request/sent``` that show a user that password reset has been initiated. The URL can be changed by configuring ```resetRequestSentEndpoint```.
+  * A view with name ```password/change``` has to be implemented that shows the password reset form. It should have two input fields: one for the new password (name should be ```password```), one for the repeated new password (name should be ```passwordRepeat```). The new password should be send as POST request to ```/password/change```.
+  * If the password field is empty or if the password and repeated password don't match, simple-users will redirect back to the ```password/change``` view, providing an error parameter with either the value ```noPassword``` or ```notMatching```.
+  * If the password was successfully changed, simple-users redirects to ```/success=PasswordChanged```.
+  
+ ### Changing reset email text
+ 
+ By default, simple-users will send the following email for resetting a password:
+ 
+> Hi $user!
+> 
+> You've requested your password to be reset for $app. To reset your password, please follow this link:
+> $url.
+> 
+> If you did not request a password reset, please ignore this email and let the system administrator know.
+> Your $app Team
+> 
+> ---
+> This email was automatically generated. Please do not reply.
+
+where the following variables are used:
+* ```$user```: name of the user
+* ```$app```: name of the app
+* ```$url```: reset url
+
+You can use your own template (using the variables above). Just set it in simple-users configuration via ```emailBody```.
