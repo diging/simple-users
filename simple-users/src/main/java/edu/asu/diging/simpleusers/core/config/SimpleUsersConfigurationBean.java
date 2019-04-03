@@ -67,11 +67,4 @@ public class SimpleUsersConfigurationBean {
         
         return sender;
     }
-    
-    @Bean
-    public SimpleMailMessage preconfiguredEmailMessage() {
-        SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setFrom(configProvider.getEmailFrom());
-        return msg;
-    }
 }
