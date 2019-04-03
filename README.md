@@ -37,7 +37,7 @@ If you want to create required beans individually, you need to instantiate the f
 * ```edu.asu.diging.simpleusers.core.service.impl.TokenService```, returning ```edu.asu.diging.simpleusers.core.service.ITokenService```
 * an implementation of ```org.springframework.mail.javamail.JavaMailSender```
 
-User objects are stored using Spring Data and the repository ```edu.asu.diging.simpleusers.core.data.UserRepository```.
+User objects are stored using Spring Data and the repository ```edu.asu.diging.simpleusers.core.data.UserRepository```. Tokens are stored via ```edu.asu.diging.simpleusers.core.data.TokenRepository```.
 
 Also, this library provides several controllers: 
 * ```edu.asu.diging.simpleusers.web.CreateAccountController```
