@@ -28,7 +28,7 @@ public class SimpleUsersConfigurationBean {
     private ConfigurationProvider configProvider;
     
     @Bean
-    public SimpleUrlHandlerMapping handlerMapping() {
+    public SimpleUrlHandlerMapping simpleUsersHandlerMapping() {
         SimpleUrlHandlerMapping mapping = new SimpleUrlHandlerMapping();
         
         String endpoint = configProvider.getUserEndpointPrefix();
