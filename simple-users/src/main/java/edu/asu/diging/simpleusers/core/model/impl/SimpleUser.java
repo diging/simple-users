@@ -17,7 +17,7 @@ import edu.asu.diging.simpleusers.core.model.IUser;
 import edu.asu.diging.simpleusers.core.model.Role;
 
 @Entity
-public class User implements UserDetails, IUser {
+public class SimpleUser implements UserDetails, IUser {
 
     /**
      * 
