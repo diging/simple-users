@@ -26,7 +26,6 @@ public class ChangePasswordController extends SimpleUserBaseController {
 
     @Override
     protected String getMappingPath() {
-        // TODO Auto-generated method stub
         return null;
     }
 

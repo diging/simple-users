@@ -14,22 +14,22 @@ import edu.asu.diging.simpleusers.core.exceptions.MailNotSetupException;
 public class NotSetupMailSender implements JavaMailSender {
 
     @Override
-    public void send(SimpleMailMessage arg0) throws MailException {
-        throw new MailNotSetupException("Mail sender has not been setup.");
-    }
-
-    @Override
-    public void send(SimpleMailMessage... arg0) throws MailException {
-        throw new MailNotSetupException("Mail sender has not been setup.");
-    }
-
-    @Override
     public MimeMessage createMimeMessage() {
         throw new MailNotSetupException("Mail sender has not been setup.");
     }
 
     @Override
     public MimeMessage createMimeMessage(InputStream arg0) throws MailException {
+        throw new MailNotSetupException("Mail sender has not been setup.");
+    }
+
+    @Override
+    public void send(SimpleMailMessage arg0) throws MailException {
+        throw new MailNotSetupException("Mail sender has not been setup.");
+    }
+
+    @Override
+    public void send(SimpleMailMessage... arg0) throws MailException {
         throw new MailNotSetupException("Mail sender has not been setup.");
     }
 

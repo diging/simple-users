@@ -48,7 +48,7 @@ public class SimpleUser implements UserDetails, IUser {
             if (role.getAuthority().equals(Role.ADMIN)) {
                 return true;
             }
-        };
+        }
         
         return false;
     }

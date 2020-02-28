@@ -30,7 +30,6 @@ public class RequestPasswordResetController extends SimpleUserBaseController {
     
     @Override
     protected String getMappingPath() {
-        // TODO Auto-generated method stub
         return null;
     }
 
