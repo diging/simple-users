@@ -19,11 +19,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import edu.asu.diging.simpleusers.core.data.UserRepository;
+import edu.asu.diging.simpleusers.core.data.SimpleUserRepository;
 import edu.asu.diging.simpleusers.core.exceptions.UserAlreadyExistsException;
 import edu.asu.diging.simpleusers.core.factory.IUserFactory;
 import edu.asu.diging.simpleusers.core.model.IUser;
-import edu.asu.diging.simpleusers.core.model.impl.User;
+import edu.asu.diging.simpleusers.core.model.impl.SimpleUser;
 
 public class UserServiceTest {
 
@@ -31,7 +31,7 @@ public class UserServiceTest {
     private Environment env;
     
     @Mock
-    private UserRepository userRepository;
+    private SimpleUserRepository userRepository;
     
     @Mock
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -47,13 +47,13 @@ public class UserServiceTest {
     private final String USER3_USERNAME = "user3";
     private final String USER4_USERNAME = "user4";
     
-    private User user1;
+    private SimpleUser user1;
     
     @BeforeEach
     public void init() {
         MockitoAnnotations.initMocks(this);
         
-        user1 = new User();
+        user1 = new SimpleUser();
         user1.setUsername(USER1_USERNAME);
         
         Mockito.when(userRepository.findById(USER1_USERNAME)).thenReturn(Optional.of(user1));
@@ -74,7 +74,7 @@ public class UserServiceTest {
         
         String password = "password";
         String role = "ROLE_ADMIN";
-        IUser user = new User();
+        IUser user = new SimpleUser();
         user.setUsername(USER2_USERNAME);
         user.setPassword(password);
         user.setEnabled(true);
@@ -99,7 +99,7 @@ public class UserServiceTest {
     
     @Test
     public void test_createUser_success() throws UserAlreadyExistsException {
-        IUser user = new User();
+        IUser user = new SimpleUser();
         user.setUsername(USER4_USERNAME);
         user.setPassword("password");
         user.setEnabled(true);
@@ -108,12 +108,12 @@ public class UserServiceTest {
         user.setCredentialsNonExpired(true);
         
         serviceToTest.create(user);
-        Mockito.verify(userRepository).save((User)user);
+        Mockito.verify(userRepository).save((SimpleUser)user);
     }
     
     @Test
     public void test_createUser_usernameInUse() {
-        IUser user = new User();
+        IUser user = new SimpleUser();
         user.setUsername(USER1_USERNAME);
         user.setPassword("password");
         user.setEnabled(true);
@@ -149,7 +149,7 @@ public class UserServiceTest {
     @Test
     public void test_approveAccount() {
         String password = "password";
-        IUser user = new User();
+        IUser user = new SimpleUser();
         user.setUsername(USER3_USERNAME);
         user.setPassword(password);
         user.setEnabled(false);
@@ -157,10 +157,10 @@ public class UserServiceTest {
         user.setAccountNonLocked(false);
         user.setCredentialsNonExpired(false);
         
-        Mockito.when(userRepository.findById(USER3_USERNAME)).thenReturn(Optional.of((User)user));
+        Mockito.when(userRepository.findById(USER3_USERNAME)).thenReturn(Optional.of((SimpleUser)user));
         
         serviceToTest.approveAccount(USER3_USERNAME, "approver");
-        Mockito.verify(userRepository).save((User)user);
+        Mockito.verify(userRepository).save((SimpleUser)user);
         
         Assertions.assertTrue(((UserDetails)user).isEnabled());
         Assertions.assertTrue(((UserDetails)user).isAccountNonExpired());
@@ -171,7 +171,7 @@ public class UserServiceTest {
     @Test
     public void test_disableUser() {
         String password = "password";
-        IUser user = new User();
+        IUser user = new SimpleUser();
         user.setUsername(USER3_USERNAME);
         user.setPassword(password);
         user.setEnabled(true);
@@ -179,10 +179,10 @@ public class UserServiceTest {
         user.setAccountNonLocked(true);
         user.setCredentialsNonExpired(true);
         
-        Mockito.when(userRepository.findById(USER3_USERNAME)).thenReturn(Optional.of((User)user));
+        Mockito.when(userRepository.findById(USER3_USERNAME)).thenReturn(Optional.of((SimpleUser)user));
         
         serviceToTest.disableUser(USER3_USERNAME, "approver");
-        Mockito.verify(userRepository).save((User)user);
+        Mockito.verify(userRepository).save((SimpleUser)user);
         
         Assertions.assertFalse(((UserDetails)user).isEnabled());
     }
@@ -190,7 +190,7 @@ public class UserServiceTest {
     @Test
     public void test_addRole() {
         String password = "password";
-        IUser user = new User();
+        IUser user = new SimpleUser();
         user.setUsername(USER3_USERNAME);
         user.setPassword(password);
         user.setEnabled(true);
@@ -198,11 +198,11 @@ public class UserServiceTest {
         user.setAccountNonLocked(true);
         user.setCredentialsNonExpired(true);
         
-        Mockito.when(userRepository.findById(USER3_USERNAME)).thenReturn(Optional.of((User)user));
+        Mockito.when(userRepository.findById(USER3_USERNAME)).thenReturn(Optional.of((SimpleUser)user));
        
         String role = "ADMIN";
         serviceToTest.addRole(USER3_USERNAME, "initiator", role);
-        Mockito.verify(userRepository).save((User)user);
+        Mockito.verify(userRepository).save((SimpleUser)user);
         Set<SimpleGrantedAuthority> roles = user.getRoles();
         Assertions.assertEquals(1, roles.size());
         Assertions.assertTrue(roles.iterator().next().getAuthority().equals(role));
@@ -211,7 +211,7 @@ public class UserServiceTest {
     @Test
     public void test_removeRole_roleExists() {
         String password = "password";
-        IUser user = new User();
+        IUser user = new SimpleUser();
         user.setUsername(USER3_USERNAME);
         user.setPassword(password);
         user.setEnabled(true);
@@ -224,10 +224,10 @@ public class UserServiceTest {
         roles.add(new SimpleGrantedAuthority(role));
         user.setRoles(roles);
         
-        Mockito.when(userRepository.findById(USER3_USERNAME)).thenReturn(Optional.of((User)user));
+        Mockito.when(userRepository.findById(USER3_USERNAME)).thenReturn(Optional.of((SimpleUser)user));
         
         serviceToTest.removeRole(USER3_USERNAME, "initiator", role);
-        Mockito.verify(userRepository).save((User)user);
+        Mockito.verify(userRepository).save((SimpleUser)user);
         Set<SimpleGrantedAuthority> actualRoles = user.getRoles();
         Assertions.assertEquals(0, actualRoles.size());
     }
@@ -235,7 +235,7 @@ public class UserServiceTest {
     @Test
     public void test_removeRole_roleDoesNotExists() {
         String password = "password";
-        IUser user = new User();
+        IUser user = new SimpleUser();
         user.setUsername(USER3_USERNAME);
         user.setPassword(password);
         user.setEnabled(true);
@@ -248,7 +248,7 @@ public class UserServiceTest {
         roles.add(new SimpleGrantedAuthority(role));
         user.setRoles(roles);
         
-        Mockito.when(userRepository.findById(USER3_USERNAME)).thenReturn(Optional.of((User)user));
+        Mockito.when(userRepository.findById(USER3_USERNAME)).thenReturn(Optional.of((SimpleUser)user));
         
         serviceToTest.removeRole(USER3_USERNAME, "initiator", "USER");
         Set<SimpleGrantedAuthority> actualRoles = user.getRoles();
