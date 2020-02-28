@@ -24,7 +24,7 @@ import edu.asu.diging.simpleusers.core.exceptions.TokenExpiredException;
 import edu.asu.diging.simpleusers.core.exceptions.UserDoesNotExistException;
 import edu.asu.diging.simpleusers.core.model.IUser;
 import edu.asu.diging.simpleusers.core.model.impl.PasswordResetToken;
-import edu.asu.diging.simpleusers.core.model.impl.User;
+import edu.asu.diging.simpleusers.core.model.impl.SimpleUser;
 import edu.asu.diging.simpleusers.core.service.IEmailService;
 import edu.asu.diging.simpleusers.core.service.IUserManager;
 import edu.asu.diging.simpleusers.core.service.SimpleUsersConstants;
@@ -57,7 +57,7 @@ public class TokenServiceTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         
-        user = new User();
+        user = new SimpleUser();
         user.setUsername(USERNAME);
         user.setEmail(EMAIL);
         

@@ -16,13 +16,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.asu.diging.simpleusers.core.data.UserRepository;
+import edu.asu.diging.simpleusers.core.data.SimpleUserRepository;
 import edu.asu.diging.simpleusers.core.exceptions.UserAlreadyExistsException;
 import edu.asu.diging.simpleusers.core.exceptions.UserDoesNotExistException;
 import edu.asu.diging.simpleusers.core.factory.IUserFactory;
 import edu.asu.diging.simpleusers.core.model.IUser;
 import edu.asu.diging.simpleusers.core.model.Role;
-import edu.asu.diging.simpleusers.core.model.impl.User;
+import edu.asu.diging.simpleusers.core.model.impl.SimpleUser;
 import edu.asu.diging.simpleusers.core.service.IUserManager;
 
 
@@ -35,7 +35,7 @@ public class UserService implements UserDetailsService, IUserManager {
     private Environment env;
     
     @Autowired
-    private UserRepository userRepository;
+    private SimpleUserRepository userRepository;
     
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -45,7 +45,7 @@ public class UserService implements UserDetailsService, IUserManager {
 
     @Override
     public UserDetails loadUserByUsername(String arg0) throws UsernameNotFoundException {
-        Optional<User> foundUser = userRepository.findById(arg0);
+        Optional<SimpleUser> foundUser = userRepository.findById(arg0);
         if (foundUser.isPresent()) {
             return foundUser.get();
         }
@@ -64,24 +64,24 @@ public class UserService implements UserDetailsService, IUserManager {
      */
     @Override
     public void create(IUser user) throws UserAlreadyExistsException {
-        Optional<User> existingUser = userRepository.findById(user.getUsername());
+        Optional<SimpleUser> existingUser = userRepository.findById(user.getUsername());
         if (existingUser.isPresent()) {
             throw new UserAlreadyExistsException("The user already exists.");
         }
         user.setEnabled(false);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save((User)user);
+        userRepository.save((SimpleUser)user);
     }
     
     @Override
     public void changePassword(IUser user, String password) throws UserDoesNotExistException {
-        Optional<User> existingUser = userRepository.findById(user.getUsername());
+        Optional<SimpleUser> existingUser = userRepository.findById(user.getUsername());
         if (!existingUser.isPresent()) {
             throw new UserDoesNotExistException("User " + user.getUsername() + " does not exist.");
         }
         user = existingUser.get();
         user.setPassword(bCryptPasswordEncoder.encode(password));
-        userRepository.save((User)user);
+        userRepository.save((SimpleUser)user);
     }
     
     /* (non-Javadoc)
@@ -89,7 +89,7 @@ public class UserService implements UserDetailsService, IUserManager {
      */
     @Override
     public IUser findByUsername(String username) {
-        Optional<User> foundUser = userRepository.findById(username);
+        Optional<SimpleUser> foundUser = userRepository.findById(username);
         if (foundUser.isPresent()) {
             return foundUser.get();
         }
@@ -103,7 +103,7 @@ public class UserService implements UserDetailsService, IUserManager {
     
     @Override
     public List<IUser> findAll() {
-        Iterable<User> users = userRepository.findAll();
+        Iterable<SimpleUser> users = userRepository.findAll();
         List<IUser> results = new ArrayList<>();
         users.iterator().forEachRemaining(u -> results.add(u));
         return results;
@@ -124,7 +124,7 @@ public class UserService implements UserDetailsService, IUserManager {
             ((IUser)user).setRoles(new HashSet<>());
         }
         ((IUser)user).getRoles().add(new SimpleGrantedAuthority(Role.USER));
-        userRepository.save((User)user);
+        userRepository.save((SimpleUser)user);
     }
     
     @Override
@@ -132,7 +132,7 @@ public class UserService implements UserDetailsService, IUserManager {
         IUser user = findByUsername(username);
         user.setEnabled(false);
         user.setNotes(user.getNotes() + String.format("Disabled by %s. ", initiator));
-        userRepository.save((User)user);
+        userRepository.save((SimpleUser)user);
     }
     
     @Override
@@ -143,7 +143,7 @@ public class UserService implements UserDetailsService, IUserManager {
             ((IUser)user).setRoles(new HashSet<>());
         }
         ((IUser)user).getRoles().add(new SimpleGrantedAuthority(role));
-        userRepository.save((User)user);
+        userRepository.save((SimpleUser)user);
     }
     
     @Override
@@ -163,7 +163,7 @@ public class UserService implements UserDetailsService, IUserManager {
         
         if (roleToBeRemoved != null) {
             user.getRoles().remove(roleToBeRemoved);
-            userRepository.save((User)user);
+            userRepository.save((SimpleUser)user);
         }
     }
 }

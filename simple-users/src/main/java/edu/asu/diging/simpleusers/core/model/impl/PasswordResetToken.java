@@ -24,7 +24,7 @@ public class PasswordResetToken implements IPasswordResetToken {
     
     private String token;
     
-    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @OneToOne(targetEntity = SimpleUser.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user_id")
     private IUser user;
   

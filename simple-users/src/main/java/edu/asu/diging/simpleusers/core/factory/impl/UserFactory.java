@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import edu.asu.diging.simpleusers.core.factory.IUserFactory;
 import edu.asu.diging.simpleusers.core.model.IUser;
-import edu.asu.diging.simpleusers.core.model.impl.User;
+import edu.asu.diging.simpleusers.core.model.impl.SimpleUser;
 import edu.asu.diging.simpleusers.web.forms.UserForm;
 
 @Component
@@ -19,7 +19,7 @@ public class UserFactory implements IUserFactory {
      */
     @Override
     public IUser createUser(UserForm userForm) {
-        IUser user = new User();
+        IUser user = new SimpleUser();
         user.setEmail(userForm.getEmail());
         user.setFirstName(userForm.getFirstName());
         user.setLastName(userForm.getLastName());
@@ -31,7 +31,7 @@ public class UserFactory implements IUserFactory {
     
     @Override
     public IUser createUser(String username, String password, String role, boolean enabled) {
-        IUser user = new User();
+        IUser user = new SimpleUser();
         user.setUsername(username);
         user.setPassword(password);
         user.setEnabled(enabled);
