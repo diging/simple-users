@@ -1,8 +1,5 @@
 package edu.asu.diging.simpleusers.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +12,8 @@ import edu.asu.diging.simpleusers.core.exceptions.InvalidTokenException;
 import edu.asu.diging.simpleusers.core.exceptions.MethodNotSupportedException;
 import edu.asu.diging.simpleusers.core.exceptions.TokenExpiredException;
 import edu.asu.diging.simpleusers.core.service.ITokenService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class ResetPasswordInitiatedController extends SimpleUserBaseController {
