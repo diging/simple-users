@@ -37,7 +37,7 @@
 		<org.slf4j-version>1.7.5</org.slf4j-version>
 		<org.springframework-version>6.0.0</org.springframework-version>
 		<spring-security-version>5.8.16</spring-security-version>
-		<spring-data.version>Lovelace-RELEASE</spring-data.version>
+		<spring-data.version>Neumann-SR9</spring-data.version>
 		<thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
 
 		<admin.password>admin</admin.password>
