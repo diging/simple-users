@@ -1,11 +1,12 @@
 package edu.asu.diging.simpleusers.web.validation;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * Taken from https://memorynotfound.com/field-matching-bean-validation-annotation-example/.
