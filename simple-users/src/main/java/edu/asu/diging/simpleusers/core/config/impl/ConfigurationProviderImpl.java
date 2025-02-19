@@ -2,8 +2,6 @@ package edu.asu.diging.simpleusers.core.config.impl;
 
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -11,6 +9,7 @@ import org.springframework.stereotype.Service;
 import edu.asu.diging.simpleusers.core.config.ConfigurationProvider;
 import edu.asu.diging.simpleusers.core.config.SimpleUsers;
 import edu.asu.diging.simpleusers.core.config.SimpleUsersConfiguration;
+import jakarta.annotation.PostConstruct;
 
 @Service
 public class ConfigurationProviderImpl implements ConfigurationProvider {
