@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.util.concurrent.TimeUnit;
 
-import javax.mail.MessagingException;
+import jakarta.mail.MessagingException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

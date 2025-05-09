@@ -2,7 +2,7 @@ package edu.asu.diging.simpleusers.core.service;
 
 import java.io.IOException;
 
-import javax.mail.MessagingException;
+import jakarta.mail.MessagingException;
 
 import edu.asu.diging.simpleusers.core.exceptions.InvalidTokenException;
 import edu.asu.diging.simpleusers.core.exceptions.TokenExpiredException;

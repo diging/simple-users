@@ -2,17 +2,17 @@ package edu.asu.diging.simpleusers.core.model.impl;
 
 import java.time.OffsetDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 
 import edu.asu.diging.simpleusers.core.model.IPasswordResetToken;
 import edu.asu.diging.simpleusers.core.model.IUser;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
 
 @Entity
 public class PasswordResetToken implements IPasswordResetToken {

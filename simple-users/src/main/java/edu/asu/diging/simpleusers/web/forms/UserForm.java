@@ -1,9 +1,9 @@
 package edu.asu.diging.simpleusers.web.forms;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 
 import edu.asu.diging.simpleusers.web.validation.FieldMatch;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 
 @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match.")
 public class UserForm {

@@ -5,7 +5,7 @@ import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.UUID;
 
-import javax.mail.MessagingException;
+import jakarta.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
