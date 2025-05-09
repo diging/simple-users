@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.asu.diging</groupId>
 	<artifactId>simple-users</artifactId>
-	<version>1.2-SNAPSHOT</version>
+	<version>1.2</version>
 
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>
